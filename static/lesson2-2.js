@@ -1,34 +1,52 @@
-/**
- * 配合块状作用域{}使用的let与const_知识点
-*/
-// let声明的变量具有块级作用域
-{
-  let a = 1
-  // 块内
-//   console.log(a)
+/*************************************************************
+ ****************************Array***************************
+*************************************************************/
+
+// 问题：
+// 1.ES5中数组遍历有多少种方法？
+// 2.他们有什么优势和缺点？
+
+// 与for循环相比，forEach的写法更加简洁，
+// 但是它存在应用场景局限性，不支持break和continue
+// every可以变相解决forEach使用场景的局限性，通过控制return true后者false
+// for in为object遍历设计
+
+const arr = [1, 2, 3, 4, 5]
+
+// for循环
+for (let i = 0; i < arr.length; i++) {
+  if (arr[i] === 2) {
+    continue
+  }
+  // console.log(arr[i])
 }
-// 块外
-// console.log(a)
-var b = 3
-let c = 4
-// 通过var声明的全局变量能通过windows的属性访问，通过let声明的全局变量不行
-// console.log(b, c)
-// console.log(window.b, window.c)
 
-// var声明的变量能够重复声明
-var b = 4
-// console.log(4)
+// forEach
+arr.forEach(function (item, index, array) {
+  // if(item===2){
+  //   continue
+  // }
+  // console.log(item)
+})
 
-// let声明的变量不能重复声明
-// let c = 5;
-// console.log(c);
+// every
+arr.every(function (item, index, array) {
+  if (item === 2) {} else {
+    // console.log(item)
+  }
+  return true // 默认返回false,只有加了return true才会继续遍历
+})
 
-// let声明的变量不会进行变量提升，var声明的变量会变量提升
+// for in
+// 自定义属性不是数组中的元素，但是for in会把a属性跟8遍历出来，
+// 这是for in的瑕疵，数组的索引不仅仅是数字，也可以是字符串
+arr.a = 8
+for (let index in arr) { // 数组也是一个对象，数组可遍历
+// index类型为字符串,右侧为number，只有==的时候才会进入if语句，===不成立直接跳过if
+  if (index * 1 === 2) { // ==只检查值，不检查类型，===既检查值，也要检查类型,index*1将字符串变成了数值
+    continue
+  }
+  console.log(index, arr[index])
+}
 
-// const具备let所有特性，const只能定义常量
-const a = 2
-// a = 3
-// console.log(a)
-// const不允许先声明再赋值,在初始化的时候一定要赋值
-// const b
-// b=3
+// for of

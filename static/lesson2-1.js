@@ -78,3 +78,59 @@ test6()
 // bind:函数动态绑定到一个对象上去，这里绑定到{a:100}
 // this指向这个对象本身
 test6.bind({ a: 100 })()
+
+/**
+ * 配合块状作用域{}使用的let与const_知识点
+*/
+// let声明的变量具有块级作用域
+{
+  let a = 1
+  // 块内
+//   console.log(a)
+}
+// 块外
+// console.log(a)
+var b = 3
+let c = 4
+// 通过var声明的全局变量能通过windows的属性访问，通过let声明的全局变量不行
+// console.log(b, c)
+// console.log(window.b, window.c)
+
+// var声明的变量能够重复声明
+var b = 4
+// console.log(4)
+
+// let声明的变量不能重复声明
+// let c = 5;
+// console.log(c);
+
+// let声明的变量不会进行变量提升，var声明的变量会变量提升
+
+// const具备let所有特性，const只能定义常量
+const a = 2
+// a = 3
+// console.log(a)
+// const不允许先声明再赋值,在初始化的时候一定要赋值
+// const b
+// b=3
+
+/**
+ * 作用域练习题
+*/
+// 1.请问下面的代码输出是什么？如何能根据i的顺序输出？
+for (var i = 0; i < 3; i++) {
+  setTimeout(function () {
+    console.log(i)
+  }, 1000)
+}
+// 答案：3 3 3
+for (let i = 0; i < 3; i++) {
+  setTimeout(function () {
+    console.log(i)
+  }, 1000)
+}
+
+// 2.请问下面的代码会发生什么？
+console.log(val1)
+let val1 = 1
+// 答案：Uncaught ReferenceError: Cannot access 'val1' before initialization
