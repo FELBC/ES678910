@@ -115,19 +115,74 @@
 // // 静态方法在实例对象上找不到
 // dog.walk() // Uncaught TypeError: dog.walk is not a function
 
+// class Animal {
+//   constructor (type) {
+//     this.type = type
+//   }
+//   eat () {
+//     // ES6静态方法调用
+//     Animal.walk()
+//     console.log('i am eat food')
+//   }
+//   // 类的静态方法
+//   static walk () {
+//     console.log('i am walking')
+//   }
+// }
+// let dog = new Animal('dog')
+// dog.eat()
+
+// ES5中怎么继承另一个类？
+// ES6是如何做的呢？
+
+// ES:
+// let Animal = function (type) {
+//   // this用来挂载到实例对象上去
+//   this.type = type
+// }
+// Animal.prototype.eat = function () {
+//   Animal.walk()
+//   console.log('i am eat food')
+// }
+
+// Animal.walk = function () {
+//   console.log('i am walking')
+// }
+// let Dog = function () {
+//   // 初始化父类的构造函数
+//   // 用call来改变this的指针(指向)，this指向dog的实例对象上去
+//   // 父类的属性全部挂载到当前的实例对象上去
+//   Animal.call(this, 'dog')
+//   this.run = function () {
+//     console.log('i can run')
+//   }
+// }
+// // 值类型，引用类型
+// // 不管是Animal构造函数中的属性和方法，还是在Animal原型链上的属性和方法Dog都能拿到
+// Dog.prototype = Animal.prototype // 指向同一块内存
+// let dog = new Dog('dog')
+// dog.eat()
+
+// ES6:
 class Animal {
   constructor (type) {
     this.type = type
   }
   eat () {
-    // ES6静态方法调用
     Animal.walk()
     console.log('i am eat food')
   }
-  // 类的静态方法
   static walk () {
     console.log('i am walking')
   }
 }
-let dog = new Animal('dog')
+class Dog extends Animal {
+  // 显式,隐式调用
+  constructor (type) {
+    super(type)
+    this.age = 2
+  }
+}
+let dog = new Dog('dog')
 dog.eat()
+console.log(dog.age)
