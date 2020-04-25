@@ -66,29 +66,68 @@
 
 // 属性保护,只读,读写属性getter,setter
 // get,set当作一个入口，控制属性的只读，有条件的写入
-let _age = 4
+// let _age = 4
+// class Animal {
+//   constructor (type) {
+//     this.type = type
+//   }
+//   // age是暴露给实例对象操作的出入口
+//   // 返回值跟出入口的名字不能一样
+//   // 真实存储年龄的变量不叫age，而是_age
+//   get age () {
+//     return _age
+//   }
+//   // set作为一个拦截
+//   set age (val) {
+//     if (val < 7 && val > 4) {
+//       _age = val
+//     }
+//   }
+//   eat () {
+//     console.log('i am eat food')
+//   }
+// }
+// let dog = new Animal('dog')
+// console.log(dog.age)
+// dog.age = 5
+// console.log(dog.age)
+// console.log(dog._age)
+
+// ES5中怎么操作一个方法？这里的方法指对象实例方法，类的静态方法
+// ES6是如何做的呢？
+// 如果方法的内部要引用实例对象的一些信息，必须定义为类的实例对象方法
+// 如果方法的内部不会涉及到实例对象的内容，则定义为类的静态方法
+
+// let Animal = function (type) {
+//   this.type = type
+// }
+// Animal.prototype.eat = function () {
+//   // 静态方法引用
+//   Animal.walk()
+//   console.log('i am eat food')
+// }
+
+// Animal.walk = function () {
+//   console.log('i am walking')
+// }
+// let dog = new Animal('dog')
+// dog.eat()
+// // 静态方法在实例对象上找不到
+// dog.walk() // Uncaught TypeError: dog.walk is not a function
+
 class Animal {
   constructor (type) {
     this.type = type
   }
-  // age是暴露给实例对象操作的出入口
-  // 返回值跟出入口的名字不能一样
-  // 真实存储年龄的变量不叫age，而是_age
-  get age () {
-    return _age
-  }
-  // set作为一个拦截
-  set age (val) {
-    if (val < 7 && val > 4) {
-      _age = val
-    }
-  }
   eat () {
+    // ES6静态方法调用
+    Animal.walk()
     console.log('i am eat food')
+  }
+  // 类的静态方法
+  static walk () {
+    console.log('i am walking')
   }
 }
 let dog = new Animal('dog')
-console.log(dog.age)
-dog.age = 5
-console.log(dog.age)
-console.log(dog._age)
+dog.eat()
