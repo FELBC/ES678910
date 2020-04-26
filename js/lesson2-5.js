@@ -102,3 +102,54 @@ map2.set(1, 3) //修改
 // for (let [key, value] of map2) {
 //   console.log(key, value)
 // }
+
+// 第四小节
+
+// ES5中怎么把一个对象复制到另一个对象上？
+// ES6怎么做呢？
+
+// Object.assign实现的是浅复制，只是引用内存地址进行了替换，不能进行深拷贝
+
+const target = {
+  a: {
+    b: {
+      c: {
+        d: 9
+      }
+    },
+    e: 5,
+    f: 6,
+    h: 10
+  }
+}
+const source = {
+  a: {
+    b: {
+      c: {
+        d: 1
+      }
+    },
+    e: 2,
+    f: 3,
+    g: undefined,
+    h: null
+  }
+}
+Object.assign(target, source) // 浅复制会出现数据丢失情况
+console.log(target)
+
+// 练习：
+// 1.如果目标对象传入的是undefined和null将会怎么样呢？
+// Uncaught TypeError: Cannot convert undefined or null to object
+// 由于undefined和null无法转成对象， 所以如果它们作为参数， 就会报错。
+
+// 2.如果源对象的参数是undefined和null又会怎样呢？
+// 首先， 这些参数都会转成对象， 如果无法转成对象， 就会跳过。 
+// 这意味着， 如果undefined和null不在首参数， 就不会报错。
+
+// 3.如果目标对象是个嵌套的对象，子对象的属性会被覆盖吗？
+// 会覆盖，源对象的属性直接替换掉目标对象的所有属性，如果目标对象有其他的属性也会被替换掉
+
+// WeakSet, WeakMap 与 Set, Map API一样
+// WeakSet与Set区别：存储的数据只能是对象
+// WeakMap与Map区别: WeakMap只允许接收对象类型的key
