@@ -69,4 +69,13 @@ function sum2(base, ...nums) {
   })
   return base * 2 + total
 }
-console.log(sum2(1, 2, 3, 4))
+// console.log(sum2(1, 2, 3, 4))
+
+function sum3(x = 1, y = 2, z = 3) {
+  return x + y + z
+}
+let data = [4, 5, 7]
+// console.log(sum(data[0], data[1], data[2]))
+// console.log(sum.apply(this, data))
+// spread操作
+console.log(sum(...data))
